@@ -33,7 +33,7 @@ contract('StarNotary', accounts => {
 
         it('can create a star and get correct response from tokenIdToStarInfo', async function () {
             let result = await this.contract.tokenIdToStarInfo(1);
-
+            
             let expected = ["Star power 103!", "I love my star", "dec_121.874", "mag_245.978","ra_032.155"]
             assert.deepEqual(result, expected)
         })

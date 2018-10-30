@@ -17,7 +17,7 @@ contract StarNotary is ERC721 {
 
     uint[] public createdStarsId;
 
-    function createStar(string _name, string _story, string _dec, string _mag, string _cent) public { 
+    function createStar(string _name, string _story, string _dec, string _mag, string _cent) public payable { 
         require(!checkIfStarExist(_dec,_mag,_cent),"star exits, please check star coordinators");
         Star memory newStar = Star(_name,_story,_dec,_mag,_cent);
         
