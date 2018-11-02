@@ -14,6 +14,7 @@ contract StarNotary is ERC721 {
     
     mapping(uint => Star) public tokenIdToStarInfo;
     mapping(uint => uint) public starsForSale;
+    mapping (bytes32 => bool) starHashToExist;
 
     uint[] public createdStarsId;
 
@@ -25,6 +26,7 @@ contract StarNotary is ERC721 {
         createdStarsId.push(tokenId);
         tokenIdToStarInfo[tokenId] = newStar;
 
+        starHashToExist[calStringHash(_dec,_mag,_cent)] = true;
         _mint(msg.sender, tokenId);
     }
 
@@ -52,17 +54,12 @@ contract StarNotary is ERC721 {
     }
 
     function checkIfStarExist(string _dec,string _mag,string _cent) public view returns(bool){
-        for(uint i = 0; i < createdStarsId.length; i++){
-            Star memory tempStar = tokenIdToStarInfo[createdStarsId[i]];
-            if(compareStirngs(tempStar.dec,_dec) && compareStirngs(tempStar.mag,_mag) && compareStirngs(tempStar.cent,_cent)){
-                return true;
-            } 
-        }
-        return false;
+        bytes32 _newStarHash = calStringHash(_dec,_mag,_cent);
+        return starHashToExist[_newStarHash]; 
     }
 
-    function compareStirngs(string a,string b) internal pure returns(bool){
-        return keccak256(abi.encodePacked(a))==keccak256(abi.encodePacked(b));
+    function calStringHash(string a,string b,string c) internal pure returns(bytes32){
+        return keccak256(abi.encodePacked(a,b,c));
     }
 
     function getCreatedStarsCount() public view  returns(uint){
