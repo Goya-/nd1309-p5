@@ -46,9 +46,7 @@
 
             <div class="row">
                 <label>createStarResult : </label>
-                <label id="result">
-
-                </label>
+                <p id="result"></p>
             </div>
         </div>
 
@@ -66,7 +64,7 @@
 
             // The interface definition for your smart contract (the ABI) 
             var StarNotary = web3.eth.contract(
-                [
+              [
     {
       "constant": true,
       "inputs": [
@@ -517,7 +515,7 @@
   ]
             );
             // Grab the contract at specified deployed address with the interface defined by the ABI
-            var starNotary = StarNotary.at('0x59e8c4184a023126ee0c7e106c9d051ed733185b');
+            var starNotary = StarNotary.at('0x9591e1a9b99d1137ed190f43ebf502915e6f9954');
 
             function claimButtonClicked() { 
                 web3.eth.getAccounts(function(error, accounts) { 
@@ -526,25 +524,27 @@
                         return
                     }
                     var account = accounts[0]
-                    console.log(account);
+                    console.log('address',account);
+                    // console.log('banlance',web3.eth.getBalance(account))
                     var name = document.getElementById("star-name").value
                     var story = document.getElementById("star-story").value
                     var dec = document.getElementById("dec").value
                     var mag = document.getElementById("mag").value
                     var cent = document.getElementById("cent").value
 
-                    starNotary.createStar(name,story,dec,mag,cent,{from: account},function(err){
-                        if(!err){    
-                            StarNotary.createdStars(function(err,result){
-                            if(!error){
-                                location.reload();
-                                document.getElementById("result").value = result
+                    starNotary.createStar(name,story,dec,mag,cent,{from: account,gas:1000000},function(err){
+                        if(!err){ 
+                          starNotary.getCreatedStarsCount(function(err,result){
+                            if(!err){
+                              console.log("tokenId",result)
+                              alert(name+" create successful! TokenId is "+result)
+                              location.reload();
                             }else{
-                                console.log(err);
+                              console.log(err)
                             }
-                            })
+                          })                                                  
                         }else{
-                            console.log("CreateStarError:",err);
+                          console.log("CreateStarError:",err);
                         }
                     })
                 })
@@ -560,7 +560,8 @@
                     var id = document.getElementById("token-id").value
                     starNotary.tokenIdToStarInfo(id,{from:accounts[0]},function(err,result){
                         if(!err){
-                            console.log(result);
+                            console.log("tokenIdToStarInfo result:",result)
+                            document.getElementById("result").innerText = result
                         }else{
                             console.log("token-id-to-star-info",err);
                         }
