@@ -6,8 +6,8 @@
 5. `truffle compiler` get abi 
 6. `truffle deploy --network rinkeby -f 2 --reset` deploy smartcontracts to Rinkeby
 7. `truffle deploy --network develpment -f 2 --reset` deploy smartcontracts to local
-7. cogy abi in *SatarNotary.json* and *SatarNotary*(develpment) in console, replace code in *index.html*
-8. open  *index.html*
+7. cogy abi in *SatarNotary.json* and *SatarNotary* in console, replace code in *index.html*
+8. open  *index.html* using `node index.html`,url is **http://127.0.0.1:1337/**
 
 ## smart contract on a public test network (Rinkeby)
 1. Transaction ID(createStar()): `0x5ad3edfb721d73dffac7eb92ac06dff2cfda9976decca827e6fa32d0ae9761b3`

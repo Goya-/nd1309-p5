@@ -515,7 +515,7 @@
   ]
             );
             // Grab the contract at specified deployed address with the interface defined by the ABI
-            var starNotary = StarNotary.at('0x9591e1a9b99d1137ed190f43ebf502915e6f9954');
+            var starNotary = StarNotary.at('0x65c970e9c2e984d581980d421ee56333448e17dc');
 
             function claimButtonClicked() { 
                 web3.eth.getAccounts(function(error, accounts) { 
@@ -536,8 +536,7 @@
                         if(!err){ 
                           starNotary.getCreatedStarsCount(function(err,result){
                             if(!err){
-                              console.log("tokenId",result)
-                              alert(name+" create successful! TokenId is "+result)
+                              alert(name+" create successful! CreatedStarsCount is "+result)
                               location.reload();
                             }else{
                               console.log(err)
